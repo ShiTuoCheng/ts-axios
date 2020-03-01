@@ -1,3 +1,5 @@
+import { InterceptorManager } from "../core/InterceptorManager";
+
 export type Method = 'get' | 'GET'
   | 'post' | 'POST'
   | 'delete' | 'DELETE'
@@ -14,6 +16,8 @@ export interface AxiosRequestConfig {
   data?: any,
   responseType?: XMLHttpRequestResponseType,
   timeout?: number
+
+  [property: string]: any
 }
 
 export interface AxiosResponse<T = any> {
@@ -29,6 +33,10 @@ export interface AxiosPromise<T = any> extends Promise<AxiosResponse<T>> {
 }
 
 export interface Axios {
+  interceptors: {
+    request: InterceptorManager<AxiosRequestConfig>
+    response: InterceptorManager<AxiosResponse>
+  }
   request<T = any>(config: AxiosRequestConfig): AxiosPromise<T>
 
   get<T = any>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
