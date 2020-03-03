@@ -65,13 +65,10 @@ export function xhr (config: AxiosRequestConfig): AxiosPromise {
       handleResponse(response);
     }
 
-    console.log(headers);
-
     Object.keys(headers).forEach(k => {
       if (data === null && k.toUpperCase() === 'CONTENT-TYPE') {
         delete headers[k];
       } else {
-        console.log(k)
         request.setRequestHeader(k, headers[k]);
       }
     })
